@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Valentine’s Day 💖</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .card {
+      perspective: 1000px;
+    }
+    .card-inner {
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+    .card.open .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      backface-visibility: hidden;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+    }
+    .heart {
+      position: absolute;
+      animation: float 3s infinite ease-in-out;
+      opacity: 0.8;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.1); }
+      100% { transform: translateY(0) scale(1); }
+    }
+  </style>
+</head>
+<body class="bg-pink-100 flex items-center justify-center min-h-screen overflow-hidden">
+
+  <div class="card w-80 h-96 cursor-pointer" onclick="toggleCard()">
+  <div class="card-inner relative w-full h-full">
+
+    <!-- Front -->
+    <div class="card-front absolute w-full h-full bg-pink-500 rounded-3xl shadow-xl
+                flex flex-col items-center justify-center text-center text-white">
+
+      <h1 class="text-3xl font-bold mb-2">
+        Be My Valentine James<br>💖
+      </h1>
+
+      <p class="text-sm">
+        It Was Not A Question 😊<br> <br>
+      </p>
+
+      <p class="text-sm mb-6">
+        See, I Can Speak Your Language<br> <br><br>Tap To See More Raid Blikkie 🌸
+      </p>
+
+      <span class="text-6xl mt-4">💝</span>
+    </div>
+
+    <!-- Back -->
+    <div class="card-back absolute w-full h-full bg-white rounded-3xl shadow-xl p-6
+                flex flex-col items-center justify-center text-center">
+
+      <h2 class="text-2xl font-bold text-pink-500 mb-4">
+        To My Valentine 💕
+      </h2>
+
+      <p class="text-gray-700 mb-6">
+        You make my heart smile in ways words never could. You are a true blessing in my life.
+        Thank you for being you 🌸
+      </p>
+
+      <button onclick="showLove(event)"
+        class="bg-pink-400 hover:bg-pink-500 text-white px-5 py-2 rounded-full shadow-lg transition">
+        Send Love 💌
+      </button>
+
+      <p id="loveText" class="mt-4 text-pink-500 font-semibold hidden">
+        Love sent with hugs, kisses & booty rubs 😘
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+  <script>
+    function toggleCard() {
+      document.querySelector('.card').classList.toggle('open');
+    }
+
+    function showLove(event) {
+      event.stopPropagation();
+      document.getElementById('loveText').classList.remove('hidden');
+      createHeart();
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart text-2xl';
+      heart.innerText = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = '100vh';
+      document.body.appendChild(heart);
+
+      let pos = 100;
+      const interval = setInterval(() => {
+        pos -= 1;
+        heart.style.top = pos + 'vh';
+        if (pos < -10) {
+          clearInterval(interval);
+          heart.remove();
+        }
+      }, 20);
+    }
+  </script>
+
+</body>
+</html>
